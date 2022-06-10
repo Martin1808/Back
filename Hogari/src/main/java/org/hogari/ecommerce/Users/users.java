@@ -7,6 +7,8 @@ public class users {
 	private String lastname;
 	private int number;
 	private String password;
+	private int id;
+	private static int total=0;
 	
 	
 //Fin atributos
@@ -16,6 +18,8 @@ public class users {
 //Constructor
 	public users(String email, String name, String lastname, int number, String password) {
 		super();
+		total++;
+		this.id=total;
 		this.email = email;
 		this.name = name;
 		this.lastname = lastname;
@@ -23,12 +27,28 @@ public class users {
 		this.password = password;
 	}//Final Constructor
 
+	//Constructor vacío
+	public users() {
+		super();
+		total++; 
+		this.id=total;
+	}
+	
 	
 //Getters y Setters
 	
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getEmail() {
 		return email;
 	}
+
 
 	public void setEmail(String email) {
 		this.email = email;
