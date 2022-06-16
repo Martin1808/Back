@@ -1,129 +1,70 @@
 package org.hogari.ecommerce.hogari.Users;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-
-
+@Entity
+@Table (name="usuario")//debe llamarse algo distinto de "user", por que esta es palabra reservada
 public class users {
 //Atributos
-	private String name;
-	private String lastname;
-	private int number;
-	private String email;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id", unique = true, nullable = false)
+	
+	//Parametros del usuario
+	private Long id;
+	private String username;
 	private String password;
-	private String arrendador;
-	private String  imagen;
-	private int id;
-	private static int total=0;
 	
+	//1. constructor
+	//1.1 constructor vacio
+	//2. getters y setters
+	//3. toString
 	
-//Fin atributos
-	
-	
-	
-//Constructor
-	public users(String name, String lastname, int number, String email, String password, String arrendador,
-			String imagen) {
+	//constructor
+	public users(Long id, String username, String password) {
 		super();
-		this.name = name;
-		this.lastname = lastname;
-		this.number = number;
-		this.email = email;
+		this.id = id;
+		this.username = username;
 		this.password = password;
-		this.arrendador = arrendador;
-		this.imagen = imagen;
-	}//Final Constructor
+	}//constructor
 
-	//Constructor vacío
+	//constructor vacio o por default
 	public users() {
 		super();
-		total++; 
-		this.id=total;
-	}
-
+	}//constructor vacio
 	
 	
-	//Getters y Setters
-	public String getName() {
-		return name;
+	public Long getId() {
+		return id;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setId(Long id) {
+		this.id = id;
 	}
-
-	public String getLastname() {
-		return lastname;
+	public String getUsername() {
+		return username;
 	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getPassword() {
 		return password;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public String isArrendador() {
-		return arrendador;
-	}
-
-	public void setArrendador(String arrendador) {
-		this.arrendador = arrendador;
-	}
-
-	public String getImagen() {
-		return imagen;
-	}
-
-	public void setImagen(String imagen) {
-		this.imagen = imagen;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-	//Cierra Getters y Setters
-	
 	
 	//toString
 	@Override
 	public String toString() {
-		return "users [name=" + name + ", lastname=" + lastname + ", number=" + number + ", email=" + email
-				+ ", password=" + password + ", arrendador=" + arrendador + ", imagen=" + imagen + "]";
-	}
-
-	
-	
+		return "User [id=" + id + ", username=" + username + ", password=" + password + "]";
+	}//toString
 	
 
-	
-	
-
-	
-	
 	
 	
 	

@@ -1,83 +1,87 @@
 package org.hogari.ecommerce.hogari.Users;
 
-
+import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-
-
-
 
 @Service
 public class userService {
-	public final ArrayList<users> lista= new ArrayList<users>();
-	public userService() { 
-		lista.add(new users("Sandra","Ruiz",5555555,"ejemplo@gmail.com","sandra123","si","nam.jgp")
-				 );
-		lista.add(new users("Sandra","Ruiz",5555555,"ejemplo@gmail.com","sandra123","si","nam.jgp")
-				 );
-		lista.add(new users("Sandra","Ruiz",5555555,"ejemplo@gmail.com","sandra123","si","nam.jgp")
-				 );
-	}//Contructor		
+	
+	//constante
+	private final UserRepository userRepository;
+
+	@Autowired
+	//constructor
+	public userService(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}//constructor
+
+	
+	//metodo para el login (validamos si existe o no)
+	public boolean login(String username, String password) { //parametros
+		boolean resultado = false; //boolean para saber si existe o no
+		Optional <users> user = userRepository.findByUsername(username);//buscamos el user y password en la BD (por username), nos regresa un optional
+		if (user.isPresent()) { //si el usuario esta presente
+			System.out.println("Password SHA es : " + SHAUtil.createHash(password));
+			if (user.get().getPassword().equals(password)){ //comparamos el usuario con su contrasena
+				resultado = true; //si user y password conciden, es true
+			}//if password
+		}//if isPresent
+		return resultado; //retornamos el resultado
+	}//login
+
+
+	public List<users> getUsers() {
+		return userRepository.findAll();
+	}//getUsers
+
+
+	public users getUser(Long userId) {
+		return userRepository.findById(userId).orElseThrow(
+				()-> new IllegalStateException("El usuario con el id " + userId + "no existe")
+				);
+	}//getUser
+
+
+	public void deleteUser(Long userId) {
+			if(userRepository.findById(userId) != null) {
+				userRepository.deleteById(userId);
+			} else {
+				throw new IllegalStateException("El usuario con el id " + userId + "no existe");
+			}//else
+	}//deleteUser
+
+
+	public void addUsuario(users user) {
+		Optional<users> userByName = userRepository.findByUsername(user.getUsername());
+		if(userByName.isPresent()) {
+			throw new IllegalStateException("El usuario con el nombre " + user.getUsername()+ " ya existe"); // Lanza error en caso de que exista
+		} else {
+			userRepository.save(user); // Guarda los datos en caso de que no exista
+		}//else
+	}//addUsuario
+
+
+	public void updateUser(Long userId, String currentPassword, String newPassword) { //pedimos id, contrasenia actual y nueva contrasenia
+		if (userRepository.existsById(userId)) { //si el usuario existe...
+			users user = userRepository.getById(userId); //traemos al usuario por id
+			if ((newPassword !=null) && (currentPassword !=null)) { //si las dos contrasenias son diferentes de null...
+				//si el usuario existe, y las contrasenias son distintas de nullo, entonces encriptamos
+				if ( (SHAUtil.verifyHash(currentPassword, user.getPassword() ) ) &&  //contrasenia actual (viene BD)
+					(! SHAUtil.verifyHash(newPassword, user.getPassword()) ) ) { //nueva contrasenia (input del formulario)
+					user.setPassword(SHAUtil.createHash(newPassword));	
+					userRepository.save(user); //guardo la nueva contrasenia
+				} else {
+					throw new IllegalStateException("Contraseña incorrecta");	
+				}//else // if equals
+			}else {
+				throw new IllegalStateException("Contraseñas nulas");	
+			}//else  // !=null
+		}else {
+			throw new IllegalStateException("Usuario no encontrado " + userId);	
+		}//else //if existsById
 		
-		
-//Get para llamar a todos los elementos 
-	public ArrayList<users> getUsers(){
-		return lista;
-	}
-	
-	
-	//metodo  GET para traer producto por id usando un foreach para recorrer todos los objetos
-	
-
-	public users getUsers(Long userId) {
-		users tmpUser = null;
-		for (users user : lista) {
-		if(user.getId() == userId) {
-			tmpUser = user;
-			}//if
-	}//foreach
-	return tmpUser;
-		
-	}//getProducto
-
-	
-	
-	//POST
-	public void addUsers(users us) {
-		lista.add(us);	
-	}//Termina post
-
-	
-	
-	//PUT
-	public void updateUsers(Long userId, String name, String lastname, int number, String email, String password,
-			String arrendador, String imagen) {
-		for (users user :lista) {
-     		if(user.getId() == userId) {
-				if (name!=null) user.setName(name);
-				if (name!=null) user.setLastname(lastname);
-				if (number!=0)user.setNumber(number);
-				if (email!=null) user.setEmail(email);
-				if (password!=null)user.setPassword(password);
-				if (arrendador!=null) user.setArrendador(arrendador);
-				if (imagen!=null) user.setImagen(imagen);
-			}//if
-		}//foreach	
-		
-	}//Termina put
-
-	
-	//DELETE
-	public void deleteUsers(Long userId) {
-		for(users us:lista) {
-			if(us.getId()==userId) {
-				lista.remove(us);
-				break;
-			}//if
-		}	//foreach
-	}//Termina delete 
-
-
-
-}//Class userService
+	} // updateUser
+}
 

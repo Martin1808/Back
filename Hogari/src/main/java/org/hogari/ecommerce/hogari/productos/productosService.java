@@ -11,10 +11,11 @@ public class productosService {
 public final ArrayList<productos>lista = new ArrayList <productos>();
 	
 	public productosService() {
-		lista.add(new productos("Casa 1",  "https://englishlive.ef.com/es-mx/blog/wp-content/uploads/sites/8/2019/03/partes-de-la-casa-en-ingles.jpg","un excelente lugar para cambiarte e inicar una vida",1000000.00));
-		lista.add(new productos("Casa 2",  "https://englishlive.ef.com/es-mx/blog/wp-content/uploads/sites/8/2019/03/partes-de-la-casa-en-ingles.jpg","Es un buen vecindario en una buena ciudad",750000.00));
-		lista.add(new productos("Casa 3",  "https://englishlive.ef.com/es-mx/blog/wp-content/uploads/sites/8/2019/03/partes-de-la-casa-en-ingles.jpg","bonito lugar",500000.00));
-	
+		lista.add(new productos("Casa 1",  "Casa1.jpg"));
+		lista.add(new productos("Casa 2",  "Casa2.jpg"));
+		lista.add(new productos("Casa 3",  "Casa3.jpg"));
+		lista.add(new productos("Casa 4",  "Casa4.jpg"));
+		lista.add(new productos("Casa 5",  "Casa5.jpg"));
 		
 	}//constructor
 	
@@ -45,13 +46,11 @@ public final ArrayList<productos>lista = new ArrayList <productos>();
 	} //metodo add producto
 
 	//metodo para modificar valores de un producto existente (con validaciones)
-	public void updateProducto(Long prodId, String nombre_archivo, String URL,String descripcion,double precio) {
+	public void updateProducto(Long prodId, String nombre_archivo, String URL) {
 		for (productos prod : lista) {
 			if(prod.getId() == prodId) {
 				if (nombre_archivo!=null) prod.setNombre_archivo(nombre_archivo);
 				if (URL != null) prod.setURL (URL);	
-				if(descripcion!=null)prod.setDescripcion(descripcion);
-				if(precio!=0)prod.setPrecio(precio);
 			}//if
 		}//foreach
 	}//update products

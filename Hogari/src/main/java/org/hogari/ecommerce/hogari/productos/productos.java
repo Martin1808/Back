@@ -5,47 +5,23 @@ public class productos {
 	//propiedades
 		private String nombre_archivo;
 		private String URL;
-		private String descripcion;
-		private double precio;
 		//Esto es para darle un ID al producto
 		private int id = 0;
 		private static int total = 0;
 		
 		
 		//constructor
-		public productos(String nombre_archivo,String URL,String descripcion,double precio) {
+		public productos(String nombre_archivo,String URL) {
 			super();
 			total ++;
 			this.id = total;
 			this.nombre_archivo = nombre_archivo;
 			this.URL = URL;
-			this.descripcion=descripcion;
-			this.precio=precio;
 		} //constructor
 		
 		
 		//Constructor vacio para agregar productos
 		
-		public String getDescripcion() {
-			return descripcion;
-		}
-
-
-		public void setDescripcion(String descripcion) {
-			this.descripcion = descripcion;
-		}
-
-
-		public double getPrecio() {
-			return precio;
-		}
-
-
-		public void setPrecio(double precio) {
-			this.precio = precio;
-		}
-
-
 		public productos () {
 			super();
 			total ++;
@@ -83,13 +59,13 @@ public class productos {
 		} //setters y getters
 
 
+
+
+
+
 		@Override
 		public String toString() {
-			return "productos [nombre_archivo=" + nombre_archivo + ", URL=" + URL + ", descripcion=" + descripcion
-					+ ", precio=" + precio + ", id=" + id + "]";
+			return "productos [nombre_archivo=" + nombre_archivo + ", URL=" + URL + "]";
 		}
-
-
-
 
 }

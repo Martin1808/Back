@@ -4,7 +4,7 @@ package org.hogari.ecommerce.hogari.inmbueble;
 	import java.util.ArrayList;
 	import java.util.List;
 
-import org.springframework.stereotype.Service;
+	import org.springframework.stereotype.Service;
 
 	@Service
 	public class inmuebleService {
@@ -12,9 +12,14 @@ import org.springframework.stereotype.Service;
 		public final ArrayList<inmueble> lista =new ArrayList<inmueble>();
 		
 		public inmuebleService() {
-			lista.add(new inmueble("gdl","zapopan","casa",4,"si","bonit","40*40",400.0));
-			lista.add(new inmueble("gdl","zapopan","casa",4,"si","bonto","40*40",400.0));
-			lista.add(new inmueble("gdl","zapopan","casa",4,"si","boto","40*40",400.0));
+			lista.add(new inmueble("gdl","zapopan","casa",4,"si","bonit","40*40",400.0,"RECAMARA.jpg"));
+			lista.add(new inmueble("gdl","zapopan","casa",4,"si","bonto","40*40",400.0, "casa2.jpg"));
+			lista.add(new inmueble("gdl","zapopan","casa",4,"si","boto","40*40",400.0, "CASA_RENTA.webp"));
+			
+			lista.add(new inmueble("gdl","zapopan","casa",4,"si","bonit","40*40",400.0,"RECAMARA.jpg"));
+			lista.add(new inmueble("gdl","zapopan","casa",4,"si","bonto","40*40",400.0, "casa2.jpg"));
+			lista.add(new inmueble("gdl","zapopan","casa",4,"si","boto","40*40",400.0, "CASA_RENTA.webp"));
+			
 		}//objeto
 
 		public List<inmueble> getInmuebles() {

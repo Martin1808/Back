@@ -9,16 +9,17 @@ public class inmueble {
 	private String descripcion;
 	private String dimensiones;
 	private double precio;
+	private String imagen;
+	
 	private int id;
 	private static int total=0;
-
-
-
+	
+	
 	public inmueble(String ciudad, String direccion, String tipoInmueble, int nPersona, String mascotas,
-			String descripcion, String dimensiones, double precio) {
+			String descripcion, String dimensiones, double precio, String imagen) {
 		super();
-		total++;
-		this.id=total;
+		total ++;
+		this.id = total;
 		this.ciudad = ciudad;
 		this.direccion = direccion;
 		this.tipoInmueble = tipoInmueble;
@@ -27,14 +28,35 @@ public class inmueble {
 		this.descripcion = descripcion;
 		this.dimensiones = dimensiones;
 		this.precio = precio;
+		this.imagen = imagen;
+		
 	}
-	
+
+
+
+
 	
 	public inmueble() {
 		super();
 		total++;
 		this.id = total;
 	}
+
+
+	public String getImagen() {
+		return imagen;
+	}
+
+
+
+
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
+
+
 
 
 	public int getId() {
